@@ -2,9 +2,14 @@
 <idea-plugin>
     <id>com.github.wuhuaqing.mvvmtemplate</id>
     <name>mvvm_template</name>
-    <vendor>wuhuaqing</vendor>
+    <vendor>varson</vendor>
 
+
+    <depends>org.jetbrains.android</depends>
+    <depends>org.jetbrains.kotlin</depends>
+    <depends>com.intellij.modules.java</depends>
     <depends>com.intellij.modules.platform</depends>
+
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.wuhuaqing.mvvmtemplate.services.MyApplicationService"/>
@@ -15,4 +20,10 @@
         <listener class="com.github.wuhuaqing.mvvmtemplate.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+
+    <extensions defaultExtensionNs="com.android.tools.idea.wizard.template">
+        <wizardTemplateProvider implementation="com.github.wuhuaqing.mvvm.SamplePluginTemplateProviderImpl" />
+    </extensions>
+
+
 </idea-plugin>
