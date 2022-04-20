@@ -28,14 +28,8 @@ fun RecipeExecutor.mvvmActivityRecipe(
     val (projectData, srcOut, resOut) = moduleTemplateData
     val ktOrJavaExt = projectData.language.extension
 
-
-
-
-
-
-
     if (mIsActivity) {
-
+        //清单文件配置
         generateManifest(
             moduleData = moduleTemplateData,
             activityClass = "${mPageName}Activity",
