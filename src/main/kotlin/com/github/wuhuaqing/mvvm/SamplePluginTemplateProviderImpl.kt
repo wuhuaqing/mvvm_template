@@ -1,3 +1,4 @@
+package com.github.wuhuaqing.mvvm
 import com.android.tools.idea.wizard.template.Template
 import com.android.tools.idea.wizard.template.WizardTemplateProvider
 import com.github.wuhuaqing.mvvm.activity.mvvmActivityTemplate
