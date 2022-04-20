@@ -30,6 +30,10 @@ fun RecipeExecutor.mvvmActivityRecipe(
 
 
 
+
+
+
+
     if (mIsActivity) {
 
         generateManifest(
@@ -40,18 +44,19 @@ fun RecipeExecutor.mvvmActivityRecipe(
             hasNoActionBar = false,
             generateActivityTitle = false
         )
+
         //layout xml 文件名生成binding名
-        var transStr = StringBuilder()
+        var transActivityBinding = StringBuilder()
         mActivityLayoutName.split("_").onEach {
             var s = it.capitalize()
-            transStr.append(s)
+            transActivityBinding.append(s)
         }
 
         val mvvmActivity = mvvmActivityKt(
             mRootPackageName,
             mActivityPackageName.replace("/", "."),
             mPageName,
-            transStr.toString()
+            transActivityBinding.toString()
         )
         // 保存Activity
         save(
@@ -76,11 +81,29 @@ fun RecipeExecutor.mvvmActivityRecipe(
             srcOut.resolve("${mActivityPackageName}/${mPageName}Repository.${ktOrJavaExt}")
         )
     } else if (mIsFragment) {
+
+        //layout xml 文件名生成binding名
+        var transFragmentBinding = StringBuilder()
+        mFragmentLayoutName.split("_").onEach {
+            var s = it.capitalize()
+            transFragmentBinding.append(s)
+        }
+
         val mvvmFragment: String = if (mIsLazyFragment) {
 
-            mvvmLazyFragmentKt(mRootPackageName, mFragmentPackageName.replace("/", "."), mPageName)
+            mvvmLazyFragmentKt(
+                mRootPackageName,
+                mFragmentPackageName.replace("/", "."),
+                mPageName,
+                transFragmentBinding.toString()
+            )
         } else {
-            mvvmFragmentKt(mRootPackageName, mFragmentPackageName.replace("/", "."), mPageName)
+            mvvmFragmentKt(
+                mRootPackageName,
+                mFragmentPackageName.replace("/", "."),
+                mPageName,
+                transFragmentBinding.toString()
+            )
         }
 
         // 保存Fragment
