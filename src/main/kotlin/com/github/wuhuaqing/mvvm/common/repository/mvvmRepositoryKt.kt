@@ -13,7 +13,7 @@ import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
     
     
-class ${mPageName}Repository {
+object ${mPageName}Repository {
 
   //TODO 网络操作
   suspend fun loadShareRegister(): Any {
