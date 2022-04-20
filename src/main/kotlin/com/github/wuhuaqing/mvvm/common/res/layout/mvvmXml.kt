@@ -1,6 +1,7 @@
 package com.github.wuhuaqing.mvvm.common.res.layout
 
 fun mvvmXml( mRootPackageName:String,
+             mActivityPackageName:String,
              mPageName:String)="""
 <?xml version="1.0" encoding="utf-8"?>
 
@@ -10,7 +11,7 @@ fun mvvmXml( mRootPackageName:String,
   <data>
     <variable
       name="viewModel"
-      type="${mRootPackageName}.${mPageName}ViewModel" />
+      type="${mRootPackageName}.${mActivityPackageName}.${mPageName}ViewModel" />
   </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout

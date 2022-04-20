@@ -15,9 +15,11 @@ import rxhttp.wrapper.param.toResponse
     
 class ${mPageName}Repository {
 
- suspend fun queryUserAccountInfo(): ** {
-        return RxHttp.get(NetUrl.**)
-            .toResponse<**>().await()
+  //TODO 网络操作
+  suspend fun loadShareRegister(): ShareInfo {
+        return RxHttp.get(NetUrl.SHARE_REGISTER)
+            .toResponse<ShareInfo>()
+            .await()
     }
     
 } 

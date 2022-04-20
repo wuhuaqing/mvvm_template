@@ -7,8 +7,7 @@ fun mvvmFragmentKt(
     mPageName:String
 )="""
 package ${mRootPackageName}.${mActivityPackageName}
-
-import android.view.View
+ 
 import android.os.Bundle 
 import com.zn.common.base.BaseDbFragment
 import com.alibaba.android.arouter.facade.annotation.Route

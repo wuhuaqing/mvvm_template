@@ -8,14 +8,13 @@ fun mvvmActivityKt(
 )="""
 package ${mRootPackageName}.${mActivityPackageName}
 
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle 
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.zn.common.router.RouterPath
+import com.zn.common.base.BaseDbActivity
+import com.zn.common.ext.initBack 
+import com.zn.common.ext.getStringExt 
 import $mRootPackageName.databinding.Activity${mPageName}Binding
-import $mRootPackageName.R
-import $mRootPackageName.base.BaseActivity
 import ${mRootPackageName}.${mActivityPackageName}.${mPageName}ViewModel
 
 @Route(path = RouterPath.**)

@@ -7,22 +7,20 @@ fun mvvmLazyFragmentKt(
     mPageName:String
 )="""
 package ${mRootPackageName}.${mActivityPackageName}
-
-import android.view.View
+ 
 import android.os.Bundle
-import androidx.fragment.app.viewModels
-import dagger.hilt.android.AndroidEntryPoint
+import com.zn.common.base.BaseDbFragment
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.zn.common.router.RouterPath
 import $mRootPackageName.base.BaseLazyFragment
 import $mRootPackageName.databinding.Fragment${mPageName}Binding
 import ${mRootPackageName}.${mActivityPackageName}.${mPageName}ViewModel
 
 
-@AndroidEntryPoint
-class ${mPageName}Fragment : BaseLazyFragment<Fragment${mPageName}Binding>() {
-    // use hilt
-    val mViewModel : ${mPageName}ViewModel by viewModels()
-
-    override fun initLazyFragment() {
+@Route(path = RouterPath.**)
+class ${mPageName}Fragment : BaseDbFragment<${mPageName}ViewModel,Fragment${mPageName}Binding>() {
+     
+    override fun initView(savedInstanceState: Bundle?) { 
     }
 }
 """

@@ -49,7 +49,7 @@ fun RecipeExecutor.mvvmActivityRecipe(
         )
         if (mIsGenerateActivityLayout) {
             // 保存xml
-            save(mvvmXml(mRootPackageName,mRootPackageName), resOut.resolve("layout/${mActivityLayoutName}.xml"))
+            save(mvvmXml(mRootPackageName,mActivityPackageName,mPageName), resOut.resolve("layout/${mActivityLayoutName}.xml"))
         }
         // 保存viewmodel
         save(
@@ -76,7 +76,7 @@ fun RecipeExecutor.mvvmActivityRecipe(
         )
         if (mIsGenerateFragmentLayout) {
             // 保存xml
-            save(mvvmXml(mRootPackageName,mRootPackageName), resOut.resolve("layout/${mFragmentLayoutName}.xml"))
+            save(mvvmXml(mRootPackageName,mActivityPackageName,mPageName), resOut.resolve("layout/${mFragmentLayoutName}.xml"))
         }
         // 保存viewmodel
         save(
