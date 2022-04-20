@@ -15,7 +15,7 @@ import com.zn.common.ext.rxHttpRequest
 class ${mPageName}ViewModel  : BaseViewModel() {
 
     //TODO 样例代码 livedata
-    val shareInfoEvent = SingleLiveEvent<ShareInfo>()
+    val shareInfoEvent = SingleLiveEvent<Any>()
     
     //样例代码
     fun getUserInfo() {
