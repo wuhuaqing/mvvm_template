@@ -6,6 +6,7 @@
 ## MVVMTemplate 
 项目中用的mvvm框架模版代码，Android Studio 4.1及以后的各动物版本，对模版代码的支持是以插件的形式来处理
 通过对插件的基础配置以及项目模版代码的配置，最终以jar的形式安装到Android Studio的本地插件中，以此来创建模版代码
+注意：生成jar包是点击 run plugin 生成
 参考资料
  [AndroidStudio Fox 编写自定义模板](https://juejin.cn/post/7039225672945893390)
 ## Template ToDo list
