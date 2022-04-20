@@ -4,11 +4,11 @@ import com.android.tools.idea.wizard.template.ModuleTemplateData
 import com.android.tools.idea.wizard.template.RecipeExecutor
 import com.android.tools.idea.wizard.template.impl.activities.common.generateManifest
 import com.github.wuhuaqing.mvvm.activity.src.app_package.ui.mvvmActivityKt
+import com.github.wuhuaqing.mvvm.activity.src.app_package.ui.mvvmFragmentKt
+import com.github.wuhuaqing.mvvm.activity.src.app_package.ui.mvvmLazyFragmentKt
 import com.github.wuhuaqing.mvvm.common.repository.mvvmRepositoryKt
 import com.github.wuhuaqing.mvvm.common.res.layout.mvvmXml
 import com.github.wuhuaqing.mvvm.common.viewmodel.mvvmViewModelKt
-import com.github.wuhuaqing.mvvm.activity.src.app_package.ui.mvvmFragmentKt
-import com.github.wuhuaqing.mvvm.activity.src.app_package.ui.mvvmLazyFragmentKt
 
 fun RecipeExecutor.mvvmActivityRecipe(
     moduleTemplateData: ModuleTemplateData,
@@ -19,11 +19,11 @@ fun RecipeExecutor.mvvmActivityRecipe(
     mIsGenerateActivityLayout: Boolean,
     mActivityPackageName: String,
     mIsUseHilt: Boolean,
-    mIsFragment :Boolean,
-    mIsLazyFragment : Boolean,
-    mFragmentLayoutName : String,
-    mIsGenerateFragmentLayout : Boolean,
-    mFragmentPackageName : String
+    mIsFragment: Boolean,
+    mIsLazyFragment: Boolean,
+    mFragmentLayoutName: String,
+    mIsGenerateFragmentLayout: Boolean,
+    mFragmentPackageName: String
 ) {
     val (projectData, srcOut, resOut) = moduleTemplateData
     val ktOrJavaExt = projectData.language.extension
@@ -35,13 +35,24 @@ fun RecipeExecutor.mvvmActivityRecipe(
         generateManifest(
             moduleData = moduleTemplateData,
             activityClass = "${mPageName}Activity",
-            packageName = ".${mActivityPackageName.replace("/",".")}",
+            packageName = "${mRootPackageName}.${mActivityPackageName.replace("/", ".")}",
             isLauncher = false,
             hasNoActionBar = false,
             generateActivityTitle = false
         )
+        //layout xml 文件名生成binding名
+        var transStr = StringBuilder()
+        mActivityLayoutName.split("_").onEach {
+            var s = it.capitalize()
+            transStr.append(s)
+        }
 
-        val mvvmActivity = mvvmActivityKt(mRootPackageName, mActivityPackageName.replace("/","."), mPageName)
+        val mvvmActivity = mvvmActivityKt(
+            mRootPackageName,
+            mActivityPackageName.replace("/", "."),
+            mPageName,
+            transStr.toString()
+        )
         // 保存Activity
         save(
             mvvmActivity,
@@ -49,24 +60,27 @@ fun RecipeExecutor.mvvmActivityRecipe(
         )
         if (mIsGenerateActivityLayout) {
             // 保存xml
-            save(mvvmXml(mRootPackageName,mActivityPackageName,mPageName), resOut.resolve("layout/${mActivityLayoutName}.xml"))
+            save(
+                mvvmXml(mRootPackageName, mActivityPackageName, mPageName),
+                resOut.resolve("layout/${mActivityLayoutName}.xml")
+            )
         }
         // 保存viewmodel
         save(
-            mvvmViewModelKt(mRootPackageName, mActivityPackageName.replace("/","."), mPageName),
+            mvvmViewModelKt(mRootPackageName, mActivityPackageName.replace("/", "."), mPageName),
             srcOut.resolve("${mActivityPackageName}/${mPageName}ViewModel.${ktOrJavaExt}")
         )
         // 保存repository
         save(
-            mvvmRepositoryKt(mRootPackageName, mActivityPackageName.replace("/","."), mPageName),
+            mvvmRepositoryKt(mRootPackageName, mActivityPackageName.replace("/", "."), mPageName),
             srcOut.resolve("${mActivityPackageName}/${mPageName}Repository.${ktOrJavaExt}")
         )
-    } else if (mIsFragment){
+    } else if (mIsFragment) {
         val mvvmFragment: String = if (mIsLazyFragment) {
 
-            mvvmLazyFragmentKt(mRootPackageName, mFragmentPackageName.replace("/","."), mPageName)
+            mvvmLazyFragmentKt(mRootPackageName, mFragmentPackageName.replace("/", "."), mPageName)
         } else {
-            mvvmFragmentKt(mRootPackageName, mFragmentPackageName.replace("/","."), mPageName)
+            mvvmFragmentKt(mRootPackageName, mFragmentPackageName.replace("/", "."), mPageName)
         }
 
         // 保存Fragment
@@ -76,16 +90,19 @@ fun RecipeExecutor.mvvmActivityRecipe(
         )
         if (mIsGenerateFragmentLayout) {
             // 保存xml
-            save(mvvmXml(mRootPackageName,mActivityPackageName,mPageName), resOut.resolve("layout/${mFragmentLayoutName}.xml"))
+            save(
+                mvvmXml(mRootPackageName, mActivityPackageName, mPageName),
+                resOut.resolve("layout/${mFragmentLayoutName}.xml")
+            )
         }
         // 保存viewmodel
         save(
-            mvvmViewModelKt(mRootPackageName, mFragmentPackageName.replace("/","."), mPageName),
+            mvvmViewModelKt(mRootPackageName, mFragmentPackageName.replace("/", "."), mPageName),
             srcOut.resolve("${mFragmentPackageName}/${mPageName}ViewModel.${ktOrJavaExt}")
         )
         // 保存repository
         save(
-            mvvmRepositoryKt(mRootPackageName, mFragmentPackageName.replace("/","."), mPageName),
+            mvvmRepositoryKt(mRootPackageName, mFragmentPackageName.replace("/", "."), mPageName),
             srcOut.resolve("${mFragmentPackageName}/${mPageName}Repository.${ktOrJavaExt}")
         )
     }

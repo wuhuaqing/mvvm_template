@@ -21,7 +21,7 @@ class ${mPageName}ViewModel  : BaseViewModel() {
     fun getUserInfo() {
         rxHttpRequest {
             onRequest = { 
-                val shareInfo = UserRepository.loadShareRegister()
+                val shareInfo = ${mPageName}Repository.loadShareRegister()
                 shareInfoEvent.value = shareInfo
             }
         }

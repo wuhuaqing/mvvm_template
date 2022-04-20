@@ -7,6 +7,9 @@ import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
 import com.intellij.ui.layout.checkBoxFollowedBySpinner
 import java.lang.StringBuilder
 
+/**
+ * 模版界面配置
+ */
 val mvvmActivityTemplate
     get() = template {
 //        revision = 1
@@ -30,13 +33,6 @@ val mvvmActivityTemplate
             default = "com.zn.live"
             visible = { !isNewModule }
             help = "默认包名为项目的包名,可根据自己需要填写"
-        }
-
-        var mPackageModuleName= stringParameter {
-            name = "pagename"
-            constraints = listOf(Constraint.APP_PACKAGE,Constraint.MODULE)
-            default = "com.zn.app"
-            help = "测试属性值"
         }
 
         val mPageName = stringParameter {
@@ -120,7 +116,6 @@ val mvvmActivityTemplate
 
         widgets(
             PackageNameWidget(mRootPackageName),
-            TextFieldWidget(mPackageModuleName),
             TextFieldWidget(mPageName),
             CheckBoxWidget(mIsFragment),
             CheckBoxWidget(mIsActivity),
