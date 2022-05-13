@@ -1,11 +1,7 @@
 package com.github.wuhuaqing.mvvm.activity
 
-import com.android.tools.idea.wizard.template.WizardUiContext
-import com.android.tools.idea.wizard.template.template
 import com.android.tools.idea.wizard.template.*
 import com.android.tools.idea.wizard.template.impl.activities.common.MIN_API
-import com.intellij.ui.layout.checkBoxFollowedBySpinner
-import java.lang.StringBuilder
 
 /**
  * 模版界面配置
@@ -48,13 +44,6 @@ val mvvmActivityTemplate
             help = "是否需要创建 Fragment ? 不勾选则不生成"
         }
 
-        val mIsLazyFragment = booleanParameter {
-            name = "Fragment is Lazy ？"
-            default = false
-            visible = { mIsFragment.value}
-            help = "是否 使创建的Fragment 为Lazy Fragment"
-        }
-
         val mIsActivity = booleanParameter {
             name = "Generate Activity"
             default = true
@@ -83,7 +72,8 @@ val mvvmActivityTemplate
             constraints = listOf(Constraint.NONEMPTY)
             default = "ui"
             visible = { mIsActivity.value }
-            help = "Activity 将被输出到此包下,使用二级目录请使用/ ,PS:ui/test,请认真核实此包名是否是你需要输出的目标包名 (基于 Root Package Name )"
+            help =
+                "Activity 将被输出到此包下,使用二级目录请使用/ ,PS:ui/test,请认真核实此包名是否是你需要输出的目标包名 (基于 Root Package Name )"
         }
 
         val mFragmentLayoutName = stringParameter {
@@ -105,15 +95,19 @@ val mvvmActivityTemplate
             constraints = listOf(Constraint.NONEMPTY)
             default = "ui"
             visible = { mIsFragment.value }
-            help = "Fragment 将被输出到此包下,使用二级目录请使用/ ,PS:ui/test,请认真核实此包名是否是你需要输出的目标包名 (基于 Root Package Name )"
+            help =
+                "Fragment 将被输出到此包下,使用二级目录请使用/ ,PS:ui/test,请认真核实此包名是否是你需要输出的目标包名 (基于 Root Package Name )"
         }
 
-//    val mIsUseHilt = booleanParameter {
-//        name = "Page Use Hilt"
-//        default = false
-//        help = "创建的组件页面是否使用Hilt注入"
-//    }
+        val mHasListWidget = booleanParameter {
+            name = "Contain List(RecyclerView)"
+            default = false
+            visible = {true}
+            help = "界面创建是否需要创建列表? 不勾选则不生成"
+        }
 
+
+        //模版配置页放入配置组件
         widgets(
             PackageNameWidget(mRootPackageName),
             TextFieldWidget(mPageName),
@@ -125,8 +119,7 @@ val mvvmActivityTemplate
             TextFieldWidget(mFragmentLayoutName),
             CheckBoxWidget(mIsGenerateFragmentLayout),
             TextFieldWidget(mFragmentPackageName),
-            CheckBoxWidget(mIsLazyFragment)
-//        CheckBoxWidget(mIsUseHilt)
+            CheckBoxWidget(mHasListWidget),
         )
 
         recipe = { data: TemplateData ->
@@ -140,10 +133,10 @@ val mvvmActivityTemplate
                 mActivityPackageName.value,
                 false,
                 mIsFragment.value,
-                mIsLazyFragment.value,
                 mFragmentLayoutName.value,
                 mIsGenerateFragmentLayout.value,
-                mFragmentPackageName.value
+                mFragmentPackageName.value,
+                mHasListWidget.value,
             )
         }
 
